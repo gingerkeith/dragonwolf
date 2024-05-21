@@ -1,0 +1,29 @@
+{
+  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/5", 
+  "attributes": [ 
+    {
+        "trait_type": "background",
+        "value": "forest"
+    },
+    {
+        "trait_type": "eye color",
+        "value": "teal glow"
+    },
+    {
+        "trait_type": "fur primary color",
+        "value": "gray"
+    },
+    {
+        "trait_type": "horns length",
+        "value": "short"
+    },
+    {
+        "trait_type": "sex",
+        "value": "male"
+    },
+    {
+        "trait_type": "temperment",
+        "value": "threatening"
+    }
+  ]
+}

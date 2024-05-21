@@ -1,0 +1,29 @@
+{
+  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/7", 
+  "attributes": [ 
+    {
+        "trait_type": "background",
+        "value": "moon & sunset"
+    },
+    {
+        "trait_type": "eye color",
+        "value": "orange"
+    },
+    {
+        "trait_type": "fur primary color",
+        "value": "blue-gray"
+    },
+    {
+        "trait_type": "horns length",
+        "value": "long"
+    },
+    {
+        "trait_type": "sex",
+        "value": "male"
+    },
+    {
+        "trait_type": "temperment",
+        "value": "threatening"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/0", 
+  "attributes": [ 
+    {
+        "trait_type": "background",
+        "value": "mountain nightscape"
+    },
+    {
+        "trait_type": "eye color",
+        "value": "green"
+    },
+    {
+        "trait_type": "fur primary color",
+        "value": "gray"
+    },
+    {
+        "trait_type": "horns length",
+        "value": "medium"
+    },
+    {
+        "trait_type": "sex",
+        "value": "male"
+    },
+    {
+        "trait_type": "temperment",
+        "value": "friendly"
+    }
+  ]
+}

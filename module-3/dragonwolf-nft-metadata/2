@@ -1,0 +1,29 @@
+{
+  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/2", 
+  "attributes": [ 
+    {
+        "trait_type": "background",
+        "value": "mountain forest"
+    },
+    {
+        "trait_type": "eye color",
+        "value": "light blue"
+    },
+    {
+        "trait_type": "fur primary color",
+        "value": "white"
+    },
+    {
+        "trait_type": "horns length",
+        "value": "short"
+    },
+    {
+        "trait_type": "sex",
+        "value": "female"
+    },
+    {
+        "trait_type": "temperment",
+        "value": "calm"
+    }
+  ]
+}
