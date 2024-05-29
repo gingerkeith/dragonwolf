@@ -2,6 +2,9 @@
   "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/2", 
   "attributes": [ 
     {
+        "description": "A friendly female dragonwolf who looks soft and inviting. Pay close attention to the wings."
+    },
+    {
         "trait_type": "background",
         "value": "mountain forest"
     },

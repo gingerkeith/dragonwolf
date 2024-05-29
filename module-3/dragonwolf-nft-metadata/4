@@ -2,6 +2,9 @@
   "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/4", 
   "attributes": [ 
     {
+        "description": "A beautiful female with a crown-like set of horns. The red snout is particularly interesting."
+    },
+    {
         "trait_type": "background",
         "value": "mountain forest"
     },

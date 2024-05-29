@@ -2,6 +2,9 @@
   "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/0", 
   "attributes": [ 
     {
+        "description": "A majestic Alpha male dragonwolf overlooking his pack as night approaches."
+    }, 
+    {
         "trait_type": "background",
         "value": "mountain nightscape"
     },

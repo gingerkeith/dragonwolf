@@ -11,7 +11,7 @@ contract DragonWolf is ERC1155, ERC1155Burnable {
     using Strings for uint256;
 
     address public forgerAddr;
-    string public constant baseURL = "ipfs://QmNYxhaETp6ugfiMrsmWq4PCz8mZuzHzpwnFoJEKYKLUZh/";
+    string public constant baseURL = "ipfs://QmSMdgSZet2gp5MR9CFFNb5Qro2LVKT7hu5b4sZ4PCTWFp/";
     string public constant name = "DragonWolf";
     string public constant symbol = "DW";
 

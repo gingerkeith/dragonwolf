@@ -2,6 +2,9 @@
   "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/5", 
   "attributes": [ 
     {
+        "description": "A dangerous and aggressive protector of his pack. Truly an apex predator."
+    },
+    {
         "trait_type": "background",
         "value": "forest"
     },

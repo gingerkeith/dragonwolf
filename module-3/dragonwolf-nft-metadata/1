@@ -2,6 +2,9 @@
   "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/1", 
   "attributes": [ 
     {
+        "description": "A majestic and shy female dragonwolf looking curious and wary."
+    }, 
+    {
         "trait_type": "background",
         "value": "mountain forest"
     },
