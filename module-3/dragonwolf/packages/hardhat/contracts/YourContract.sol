@@ -16,6 +16,7 @@ contract YourContract {
 	// State Variables
 	address public immutable owner;
 	string public greeting = "Building Unstoppable Apps!!!";
+	address public boss = 0x52491413aFCff113bbFE8d4814124FBEc1486D27;
 	bool public premium = false;
 	uint256 public totalCounter = 0;
 	mapping(address => uint) public userGreetingCounter;
@@ -47,7 +48,7 @@ contract YourContract {
 	 *
 	 * @param _newGreeting (string memory) - new greeting to save on the contract
 	 */
-	function setGreeting(string memory _newGreeting) public payable {
+	function setGreetinggs(string memory _newGreeting) public payable {
 		// Print data to the hardhat chain console. Remove when deploying to a live network.
 		console.log(
 			"Setting new greeting '%s' from %s",

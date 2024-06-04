@@ -4,7 +4,9 @@ import { hardhat } from "viem/chains";
 import { CurrencyDollarIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { SwitchTheme } from "~~/components/SwitchTheme";
-import { BuidlGuidlLogo } from "~~/components/assets/BuidlGuidlLogo";
+import { HardhatLogo } from "~~/components/assets/HardhatLogo";
+import { ReactLogo } from "~~/components/assets/ReactLogo";
+import { ScaffoldEthLogo } from "~~/components/assets/ScaffoldEthLogo";
 import { Faucet } from "~~/components/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { useGlobalState } from "~~/services/store/store";
@@ -32,11 +34,11 @@ export const Footer = () => {
             )}
             {isLocalNetwork && (
               <>
-                <Faucet />
+                {/* <Faucet />
                 <Link href="/blockexplorer" passHref className="btn btn-primary btn-sm font-normal gap-1">
                   <MagnifyingGlassIcon className="h-4 w-4" />
                   <span>Block Explorer</span>
-                </Link>
+                </Link> */}
               </>
             )}
           </div>
@@ -52,25 +54,27 @@ export const Footer = () => {
               </a>
             </div>
             <span> · </span>
-            <div className="flex justify-center items-center gap-2">
-              <p className="m-0 text-center">
-                Built with <HeartIcon className="inline-block h-4 w-4" /> at
-              </p>
-              <a
-                className="flex justify-center items-center gap-1"
-                href="https://buidlguidl.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <BuidlGuidlLogo className="w-3 h-5 pb-1" />
-                <span className="link">BuidlGuidl</span>
-              </a>
-            </div>
-            <span> · </span>
             <div className="text-center">
               <a href="#" target="_blank" rel="noreferrer" className="link">
                 Visit the Collection on OpenSea
               </a>
+            </div>
+            <span> · </span>
+            <div className="flex justify-center items-center gap-2">
+              <p className="m-0 text-center">
+                Built with <HeartIcon className="inline-block h-4 w-4" /> using
+              </p>
+              <a
+                className="flex justify-center items-center gap-1"
+                href="https://scaffoldeth.io/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ScaffoldEthLogo className="w-4 h-6" />
+                <span className="link">Scaffold-Eth</span>
+              </a>
+              <ReactLogo className="w-4 h-6" />
+              <HardhatLogo className="w-4 h-6" />
             </div>
           </div>
         </ul>
@@ -78,3 +82,4 @@ export const Footer = () => {
     </div>
   );
 };
+// shout out to TROGDOR the BURNINATOR. https://en.wikifur.com/w/images/thumb/d/d3/Trogdor_Original_Design.png/708px-Trogdor_Original_Design.png

@@ -1,32 +1,32 @@
 {
-  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/5", 
-  "attributes": [ 
-    {
-        "description": "A dangerous and aggressive protector of his pack. Truly an apex predator."
-    },
-    {
-        "trait_type": "background",
-        "value": "forest"
-    },
-    {
-        "trait_type": "eye color",
-        "value": "teal glow"
-    },
-    {
-        "trait_type": "fur primary color",
-        "value": "gray"
-    },
-    {
-        "trait_type": "horns length",
-        "value": "short"
-    },
-    {
-        "trait_type": "sex",
-        "value": "male"
-    },
-    {
-        "trait_type": "temperment",
-        "value": "threatening"
-    }
-  ]
+    "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/5", 
+
+    "description": "A dangerous and aggressive protector of his pack. Truly an apex predator.",
+
+    "traits": [ 
+        {
+            "type": "background",
+            "value": "forest"
+        },
+        {
+            "type": "eye color",
+            "value": "teal glow"
+        },
+        {
+            "type": "fur primary color",
+            "value": "gray"
+        },
+        {
+            "type": "horns length",
+            "value": "short"
+        },
+        {
+            "type": "sex",
+            "value": "male"
+        },
+        {
+            "type": "temperment",
+            "value": "threatening"
+        }
+    ]
 }

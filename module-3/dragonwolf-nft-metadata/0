@@ -1,32 +1,32 @@
 {
-  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/0", 
-  "attributes": [ 
-    {
-        "description": "A majestic Alpha male dragonwolf overlooking his pack as night approaches."
-    }, 
-    {
-        "trait_type": "background",
-        "value": "mountain nightscape"
-    },
-    {
-        "trait_type": "eye color",
-        "value": "green"
-    },
-    {
-        "trait_type": "fur primary color",
-        "value": "gray"
-    },
-    {
-        "trait_type": "horns length",
-        "value": "medium"
-    },
-    {
-        "trait_type": "sex",
-        "value": "male"
-    },
-    {
-        "trait_type": "temperment",
-        "value": "friendly"
-    }
-  ]
+    "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/0", 
+
+    "description": "A majestic Alpha male dragonwolf overlooking his pack as night approaches.",
+
+    "traits": [ 
+        {
+            "type": "background",
+            "value": "mountain nightscape"
+        },
+        {
+            "type": "eye color",
+            "value": "green"
+        },
+        {
+            "type": "fur primary color",
+            "value": "gray"
+        },
+        {
+            "type": "horns length",
+            "value": "medium"
+        },
+        {
+            "type": "sex",
+            "value": "male"
+        },
+        {
+            "type": "temperment",
+            "value": "friendly"
+        }
+    ]
 }

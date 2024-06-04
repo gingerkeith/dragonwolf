@@ -1,35 +1,34 @@
 {
-  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/6", 
-  "attributes": [ 
-    {
-        "description": "The rare, beautiful and hypnotizing White Wolfdragon. The author's personal favorite."
-    },
-    {
-        "name": "Nevica",
-    },
-    {
-        "trait_type": "background",
-        "value": "snowy mountain forest"
-    },
-    {
-        "trait_type": "eye color",
-        "value": "ice blue"
-    },
-    {
-        "trait_type": "fur primary color",
-        "value": "white"
-    },
-    {
-        "trait_type": "horns length",
-        "value": "long"
-    },
-    {
-        "trait_type": "sex",
-        "value": "female"
-    },
-    {
-        "trait_type": "temperment",
-        "value": "attentive"
-    }
-  ]
+    "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/6", 
+
+    "description": "The rare, beautiful and hypnotizing White Wolfdragon. The author's personal favorite.",
+
+    "name": "Nevica",
+    
+    "traits": [ 
+        {
+            "type": "background",
+            "value": "snowy mountain forest"
+        },
+        {
+            "type": "eye color",
+            "value": "ice blue"
+        },
+        {
+            "type": "fur primary color",
+            "value": "white"
+        },
+        {
+            "type": "horns length",
+            "value": "long"
+        },
+        {
+            "type": "sex",
+            "value": "female"
+        },
+        {
+            "type": "temperment",
+            "value": "attentive"
+        }
+    ]
 }

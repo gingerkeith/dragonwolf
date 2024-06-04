@@ -1,91 +1,260 @@
 "use client";
 
 // import Image from "next/image";
-import React from "react";
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import axios from "axios";
-import type { NextPage } from "next";
+// import type { NextPage } from "next";
 import { useAccount } from "wagmi";
+import { nftCards } from "~~/components/NFT_Cards";
 import { Address } from "~~/components/scaffold-eth";
 
-interface NFTData {
-  nftImgUrl: string;
-  nftDesc: string;
-}
+const Home: NextPage = () => {
+  // const Home = () => {
+  const { address: connectedAddress } = useAccount();
+  // const [dragonwolfData, setDragonwolfData] = useState<NFTData[]>([]);
 
-//const Home: NextPage = () => {
-const Home = () => {
-  console.log("Home comp rendered"); //del
-  // const { address: connectedAddress } = useAccount();
-  const [dragonwolfData, setDragonwolfData] = useState<NFTData[]>([]);
-
-  useEffect(() => {
-    async function fetchNFTMetadata() {
-      try {
-        const ipfsUrl = "https://ipfs.io/ipfs/QmSMdgSZet2gp5MR9CFFNb5Qro2LVKT7hu5b4sZ4PCTWFp/";
-        const response = await axios.get(ipfsUrl);
-        const jsonData = response.data;
-
-        const nftDataArr: NFTData[] = jsonData.map((nft: any, index: number) => ({
-          nftImgUrl: nft.image,
-          nftDesc: nft.attributes.description,
-          key: index,
-        }));
-        setDragonwolfData(nftDataArr);
-        console.log("NFT Data:", nftDataArr); //del
-      } catch (error) {
-        console.error("Error while fetching NFT metadata:", error);
-      }
-    }
-
-    fetchNFTMetadata();
-  }, []);
   return (
-    <div>
-      <p>Static text to verify rendering</p>
-      {dragonwolfData.length > 0 && <p>Data is available</p>}
-    </div>
+    <>
+      {/* <nftCards /> */}
+
+      <div className="flex items-center flex-col flex-grow pt-10">
+        <div className="px-5">
+          <h1 className="text-center">
+            <span className="block text-4xl font-bold">Dragon-Wolf Collection</span>
+          </h1>
+          <div className="flex justify-center items-center space-x-2">
+            <p className="text-center text-lg">A fun collection of a mashup between wolves and dragons.</p>
+            {/* <br />
+            <Link href="#" passHref className="link" target="_blank" rel="noopener noreferrer">
+              <p className="my-2 font-medium">visit the Collection on OpenSeas</p>
+            </Link> */}
+          </div>
+        </div>
+
+        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
+          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row mb-12">
+            {/* NFT_0 */}
+            <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
+              <Link
+                href="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/0"
+                passHref
+                className="link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/0"
+                  alt="NFT_0 image"
+                ></img>
+              </Link>
+              <div className="flex justify-between items-center">
+                <div>Dragon-Wolf #0</div>
+                <div>Qty: x{}</div>
+              </div>
+              <p className="no-underline">A majestic Alpha male dragonwolf overlooking his pack as night approaches.</p>
+              <div className="flex nft-actions justify-between">
+                <button className="btn btn-success">Mint</button>
+                <button className="btn btn-neutral">Trade</button>
+                <button className="btn btn-error">Burn</button>
+              </div>
+              {/* <Link href="#" passHref className="link">
+                view on OpenSea
+              </Link>{" "} */}
+            </div>
+
+            {/* NFT_1 */}
+            <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
+              <Link
+                href="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/1"
+                passHref
+                className="link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/1"
+                  alt="NFT_1 image"
+                ></img>
+              </Link>
+              <div className="flex justify-between items-center">
+                <div>Dragon-Wolf #1</div>
+                <div>Qty: x{}</div>
+              </div>
+              <p className="no-underline">A majestic and shy female dragonwolf looking curious and wary.</p>
+              <div className="flex nft-actions justify-between">
+                <button className="btn btn-success">Mint</button>
+                <button className="btn btn-neutral">Trade</button>
+                <button className="btn btn-error">Burn</button>
+              </div>
+              {/* <Link href="#" passHref className="link">
+                view on OpenSea
+              </Link>{" "} */}
+            </div>
+
+            {/* NFT_2 */}
+            <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
+              <Link
+                href="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/2"
+                passHref
+                className="link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/2"
+                  alt="NFT_2 image"
+                ></img>
+              </Link>
+              <div className="flex justify-between items-center">
+                <div>Dragon-Wolf #2</div>
+                <div>Qty: x{}</div>
+              </div>
+              <p className="no-underline">
+                A friendly female dragonwolf who looks soft and inviting. Pay close attention to the wings.
+              </p>
+              <div className="flex nft-actions justify-between">
+                <button className="btn btn-success">Mint</button>
+                <button className="btn btn-neutral">Trade</button>
+                <button className="btn btn-error">Burn</button>
+              </div>
+
+              {/* <Link href="#" passHref className="link">
+                view on OpenSea
+              </Link>{" "} */}
+            </div>
+
+            {/* NFT_3 */}
+            <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
+              <Link
+                href="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/3"
+                passHref
+                className="link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/3"
+                  alt="NFT_3 image"
+                ></img>
+              </Link>
+              <div className="flex justify-between items-center">
+                <div>Dragon-Wolf #3</div>
+                <div>Qty: x{}</div>
+              </div>
+              <p className="no-underline">
+                A dangerous and powerful Alpha female, matriarch of her pack. Claws that could rival those of Smaug.
+              </p>
+              <div className="flex nft-actions justify-between">
+                <button className="btn btn-warning">Forge</button>
+                <button className="btn btn-error">Burn</button>
+              </div>
+
+              {/* <Link href="#" passHref className="link">
+                view on OpenSea
+              </Link>{" "} */}
+            </div>
+          </div>
+
+          {/* NFT_4 */}
+          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row mb-12">
+            <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
+              <Link
+                href="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/4"
+                passHref
+                className="link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/4"
+                  alt="NFT_4 image"
+                ></img>
+              </Link>
+              <div className="flex justify-between items-center">
+                <div>Dragon-Wolf #4</div>
+                <div>Qty: x{}</div>
+              </div>
+              <p className="no-underline">
+                A beautiful female with a crown-like set of horns. The red snout is particularly interesting.
+              </p>
+              <div className="flex nft-actions justify-between">
+                <button className="btn btn-warning">Forge</button>
+                <button className="btn btn-error">Burn</button>
+              </div>
+
+              {/* <Link href="#" passHref className="link">
+                view on OpenSea
+              </Link>{" "} */}
+            </div>
+
+            {/* NFT_5 */}
+            <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
+              <Link
+                href="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/5"
+                passHref
+                className="link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/5"
+                  alt="NFT_5 image"
+                ></img>
+              </Link>
+              <div className="flex justify-between items-center">
+                <div>Dragon-Wolf #5</div>
+                <div>Qty: x{}</div>
+              </div>
+              <p className="no-underline">A dangerous and aggressive protector of his pack. Truly an apex predator.</p>
+              <div className="flex nft-actions justify-between">
+                <button className="btn btn-warning">Forge</button>
+                <button className="btn btn-error">Burn</button>
+              </div>
+              {/* <Link href="#" passHref className="link">
+                view on OpenSea
+              </Link>{" "} */}
+            </div>
+
+            {/* NFT_6 */}
+            <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
+              <Link
+                href="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/6"
+                passHref
+                className="link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/6"
+                  alt="NFT_6 image"
+                ></img>
+              </Link>
+              <div className="flex justify-between items-center">
+                <div>Dragon-Wolf #6</div>
+                <div>Qty: x{}</div>
+              </div>
+              <p className="no-underline">
+                The rare, beautiful and hypnotizing White Wolfdragon. The author's personal favorite.
+              </p>
+              <div className="flex nft-actions justify-between">
+                <button onClick={clicked} className="btn btn-warning">
+                  Forge
+                </button>
+                <button className="btn btn-error">Burn</button>
+              </div>
+
+              {/* <Link href="#" passHref className="link">
+                view on OpenSea
+              </Link>{" "} */}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
-
-  // return (
-  //   <>
-  //     <div className="flex items-center flex-col flex-grow pt-10">
-  //       <div className="px-5">
-  //         <h1 className="text-center">
-  //           <span className="block text-4xl font-bold">Dragon Wolf Collection</span>
-  //         </h1>
-  //         <div className="flex justify-center items-center space-x-2">
-  //           <p className="text-center text-lg">A fun collection of a mashup between wolves and dragons.</p>
-  //           <br />
-  //           <Link href="#" passHref className="link" target="_blank" rel="noopener noreferrer">
-  //             <p className="my-2 font-medium">(visit the Collection on OpenSeas)</p>
-  //           </Link>
-  //         </div>
-  //       </div>
-
-  //       <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-  //         <div className="flex justify-center items-center gap-12 flex-col sm:flex-row mb-12">
-  //           {dragonwolfData.map((nft, index) => (
-  //             <div
-  //               key={index}
-  //               className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl"
-  //             >
-  //               <p>does this text show up?</p>
-  //               <Link href={nft.nftImgUrl} passHref className="link" target="_blank" rel="noopener noreferrer">
-  //                 <img src={nft.nftImgUrl} alt={`NFT_${index} image`} />
-  //               </Link>
-  //               <p className="no-underline">{nft.nftDesc}</p>
-  //               {/* <Link href="#" passHref className="link">
-  //                 view on OpenSea
-  //               </Link>{" "} */}
-  //             </div>
-  //           ))}
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </>
-  // );
 };
+
+function clicked() {
+  alert("button clicked");
+}
 
 export default Home;

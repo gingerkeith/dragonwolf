@@ -1,32 +1,32 @@
 {
-  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/2", 
-  "attributes": [ 
-    {
-        "description": "A friendly female dragonwolf who looks soft and inviting. Pay close attention to the wings."
-    },
-    {
-        "trait_type": "background",
-        "value": "mountain forest"
-    },
-    {
-        "trait_type": "eye color",
-        "value": "light blue"
-    },
-    {
-        "trait_type": "fur primary color",
-        "value": "white"
-    },
-    {
-        "trait_type": "horns length",
-        "value": "short"
-    },
-    {
-        "trait_type": "sex",
-        "value": "female"
-    },
-    {
-        "trait_type": "temperment",
-        "value": "calm"
-    }
-  ]
+    "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/2", 
+    
+    "description": "A friendly female dragonwolf who looks soft and inviting. Pay close attention to the wings.",
+
+    "traits": [ 
+        {
+            "type": "background",
+            "value": "mountain forest"
+        },
+        {
+            "type": "eye color",
+            "value": "light blue"
+        },
+        {
+            "type": "fur primary color",
+            "value": "white"
+        },
+        {
+            "type": "horns length",
+            "value": "short"
+        },
+        {
+            "type": "sex",
+            "value": "female"
+        },
+        {
+            "type": "temperment",
+            "value": "calm"
+        }
+    ]
 }

@@ -1,32 +1,32 @@
 {
-  "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/7", 
-  "attributes": [ 
-    {
-        "description": "A bonus dragon in this collection - unmintable."
-    },
-    {
-        "trait_type": "background",
-        "value": "moon & sunset"
-    },
-    {
-        "trait_type": "eye color",
-        "value": "orange"
-    },
-    {
-        "trait_type": "fur primary color",
-        "value": "blue-gray"
-    },
-    {
-        "trait_type": "horns length",
-        "value": "long"
-    },
-    {
-        "trait_type": "sex",
-        "value": "male"
-    },
-    {
-        "trait_type": "temperment",
-        "value": "threatening"
-    }
-  ]
+    "image": "ipfs://bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/7", 
+
+    "description": "A bonus dragon in this collection - unmintable.",
+
+    "traits": [ 
+        {
+            "type": "background",
+            "value": "moon & sunset"
+        },
+        {
+            "type": "eye color",
+            "value": "orange"
+        },
+        {
+            "type": "fur primary color",
+            "value": "blue-gray"
+        },
+        {
+            "type": "horns length",
+            "value": "long"
+        },
+        {
+            "type": "sex",
+            "value": "male"
+        },
+        {
+            "type": "temperment",
+            "value": "threatening"
+        }
+    ]
 }
