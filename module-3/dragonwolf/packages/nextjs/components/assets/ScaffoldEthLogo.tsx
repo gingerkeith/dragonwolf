@@ -8,7 +8,8 @@ export const ScaffoldEthLogo = ({ className }: { className: string }) => {
       viewBox="0 0 103 102"
       fill="none"
     >
-      <rect x="0.72229" y="0.99707" width="100%" height="100%" rx="19.6606" fill="currentColor" />
+      <title>Scaffold Eth-2</title>
+      <rect x="0.72229" y="0.99707" width="100%" height="100%" rx="19.6606" fill="gray" />
       <path
         d="M69.4149 42.5046L70.9118 39.812L72.5438 42.5046L83.0241 59.1906L70.9533 65.9361L59.1193 59.1906L69.4149 42.5046Z"
         fill="white"

@@ -1,12 +1,14 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { hardhat } from "viem/chains";
 import { CurrencyDollarIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { SwitchTheme } from "~~/components/SwitchTheme";
-import { HardhatLogo } from "~~/components/assets/HardhatLogo";
-import { ReactLogo } from "~~/components/assets/ReactLogo";
 import { ScaffoldEthLogo } from "~~/components/assets/ScaffoldEthLogo";
+import { ReactLogo } from "~~/components/assets/ReactLogo";
+import { HardhatLogo } from "~~/components/assets/HardhatLogo";
+import { SolidityLogo } from "~~/components/assets/SolidityLogo";
 import { Faucet } from "~~/components/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { useGlobalState } from "~~/services/store/store";
@@ -71,10 +73,11 @@ export const Footer = () => {
                 rel="noreferrer"
               >
                 <ScaffoldEthLogo className="w-4 h-6" />
-                <span className="link">Scaffold-Eth</span>
+                {/* <span className="link">Scaffold-Eth</span> */}
               </a>
               <ReactLogo className="w-4 h-6" />
               <HardhatLogo className="w-4 h-6" />
+              <SolidityLogo className="w-4 h-6" />
             </div>
           </div>
         </ul>
