@@ -5,15 +5,13 @@ pragma solidity >=0.8.0 <0.9.0;
 // import "@openzeppelin/contracts/access/Ownable2Step.sol";
 import "./DragonWolf.sol";
 
-contract DragonWolf_Forge {// is Ownable2Step {
+contract DragonWolf_Forge is DragonWolf {// is Ownable2Step {
     DragonWolf public tokenContract;
 
     constructor(address _tokenAddress) {
         tokenContract = DragonWolf(_tokenAddress);
     }
 
-    // function whichTokenToForge() private pure returns
-    
     function forge(uint256[] memory burnIds, uint256[] memory burnAmounts, uint256 _forgeId) internal {
         require(_forgeId >= 3 && _forgeId <= 6, "Invalid forging token id");
 

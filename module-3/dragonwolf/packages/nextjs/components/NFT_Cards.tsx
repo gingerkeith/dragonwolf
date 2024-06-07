@@ -278,6 +278,22 @@ const handleClick = (event: { currentTarget: { getAttribute: (arg0: string) => a
   const tokenAction = event.currentTarget.getAttribute("data-value");
   const tokenId = event.currentTarget.getAttribute("data-tokenId");
 
+  switch (tokenAction) {
+    case "mint":
+      //call minting code
+      alert(`MINT_${tokenId}`);
+      break;
+    case "trade":
+      alert(`TRADE_${tokenId}`);
+      break;
+    case "forge":
+      alert(`FORGE_${tokenId}`);
+      break;
+    default: //burninating
+      alert(`BURNINATING__${tokenId}`);
+      break;
+  }
+
   const outputStr = `tokenAction: ${tokenAction}, tokenId: ${tokenId}`;
   console.log(outputStr);
 };

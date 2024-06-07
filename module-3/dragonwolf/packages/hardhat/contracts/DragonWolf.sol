@@ -16,22 +16,21 @@ contract DragonWolf is ERC1155, ERC1155Burnable {
     string public constant symbol = "DW";
 
 
-    constructor(address _forger)
+    constructor(/*address _forger*/)
         ERC1155(baseURL)
         // Ownable(initialOwner)
     {
-        forgerAddr = _forger; //what?
+        // forgerAddr = _forger; //what?
     }
-
-    // function setURI(string memory newuri) public onlyOwner {
-    //     _setURI(newuri);
-    // } //I don't understand what this fn does or why we need it?
 
     function mint(address to, uint256 tokenId, uint256 quantity) public {
         super._mint(to, tokenId, quantity, '');
     }
 
-    // function _forge(uint256 _tokenId, )
+    function trade(uint8 giveTokenId, uint8 receiveTokenId, uint8 amount) public {
+        safeTransferFrom(msg.sender, address(this), giveTokenId, amount, "");
+        mint(msg.sender, receiveTokenId, amount);
+    }
 
     function tokenURI(uint256 _tokenId) public pure returns (string memory) {
         return string(abi.encodePacked(baseURL, _tokenId.toString()));
