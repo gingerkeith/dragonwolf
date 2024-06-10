@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 
 const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_API_KEY;
-// const provider = new ethers.providers.JsonRpcProvider(`https://mainnet.infura.io/v3/${INFURA_ID}`); // .Web3Provider(window.ethereum);
-const provider = new ethers.providers.InfuraProvider("maticmum");
+const provider = new ethers.providers.JsonRpcProvider(`https://polygon-amoy.infura.io/v3/${INFURA_ID}`);
+// const provider = new ethers.providers.InfuraProvider("maticmum");
 const contractAddress = "0xC6760c2Fd1809742B4577aAaa4013C92e9Cd89bB";
 const CONTRACT_ABI = [
   "function name() view returns (string)",
@@ -30,6 +30,7 @@ export const main = async () => {
   const balance = await contract.balanceOf("msg.sender");
 
   console.log(`Balance Returned: ${balance}`);
+  alert(`Balance Returned: ${balance}`);
   console.log(`Balance Formatted: ${ethers.utils.formatEther(balance)}\n`);
 };
 
