@@ -1,21 +1,26 @@
+import contractABI from "./contract_ABI.json";
+import { Alchemy, Network } from "alchemy-sdk";
 import { ethers } from "ethers";
 
-const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_API_KEY;
-const provider = new ethers.providers.JsonRpcProvider(`https://polygon-amoy.infura.io/v3/${INFURA_ID}`);
+// const { ethers } = require("ethers");
+
+const API_KEY_ID = process.env.NEXT_PUBLIC_INFURA_API_KEY;
+
+//example -- testing API
+const settings = {
+  apiKey: API_KEY_ID,
+  network: Network.MATIC_AMOY,
+};
+const alchemy = new Alchemy(settings);
+const nfts = alchemy.nft.getNftsForOwner("vitalik.eth");
+console.log(`%%%_NFTs...${nfts}`);
+alchemy.core.nfts.then(console.log);
+
+const provider = new ethers.providers.JsonRpcProvider(`https://polygon-amoy.infura.io/v3/${API_KEY_ID}`);
 // const provider = new ethers.providers.InfuraProvider("maticmum");
 const contractAddress = "0xC6760c2Fd1809742B4577aAaa4013C92e9Cd89bB";
-const CONTRACT_ABI = [
-  "function name() view returns (string)",
-  "function symbol() view returns (string)",
-  "function balanceOf(address) view returns (uint)",
-  "function trade(giveTokenId[], receiveTokenId[], amount[])",
-  "function forge(burnIds[], burnamount, _forgeId)",
-  "function mint(to, tokenId, quantity)",
-  "function setApprovalForAll(operator, approved)",
-  "function burnBatch(account, ids[], values[])",
-  "function tokenURI(_tokenId) pure returns (string)",
-];
-const contract = new ethers.Contract(contractAddress, CONTRACT_ABI, provider);
+//const CONTRACT_ABI = contractABI;
+const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
 export const main = async () => {
   const name = await contract.name();
@@ -28,13 +33,15 @@ export const main = async () => {
   console.log(`Total Supply: ${totalSupply}\n`);
 
   const balance = await contract.balanceOf("msg.sender");
+  const balance2 = await provider.getBalance("0x52491413aFCff113bbFE8d4814124FBEc1486D27");
 
   console.log(`Balance Returned: ${balance}`);
   alert(`Balance Returned: ${balance}`);
+  alert(`Balance2 Returned: ${balance2}`);
   console.log(`Balance Formatted: ${ethers.utils.formatEther(balance)}\n`);
 };
 
-main();
+// main();
 
 // await provider.send("eth_requestAccounts", []);
 // const signer = provider.getSigner();

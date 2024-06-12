@@ -1,6 +1,57 @@
 "use client";
 
 import Link from "next/link";
+import { AlchemyProvider } from "@ethersproject/providers";
+// import * as dotenv from "dotenv";
+import { ContractInterface, ContractMethod, ethers } from "ethers";
+
+// dotenv.config();
+
+// import { main } from "~~/utils/myContractData.ts";
+
+//packages\nextjs\utils\myContractData.ts
+const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+// const provider = new ethers.providers.AlchemyProvider("maticmum", `https://polygon-amoy.ALCHEMY.io/v3/${ALCHEMY_ID}`);
+const provider = new ethers.providers.AlchemyProvider("maticmum", `https://polygon-amoy.ALCHEMY.io/v3/${ALCHEMY_ID}`);
+const contractAddress = "0xC6760c2Fd1809742B4577aAaa4013C92e9Cd89bB";
+const CONTRACT_ABI = [
+  "function name() view returns (string)",
+  "function symbol() view returns (string)",
+  "function balanceOf(address) view returns (uint)",
+  "function trade(giveTokenId[], receiveTokenId[], amount[])",
+  "function forge(burnIds[], burnamount, _forgeId)",
+  "function mint(to, tokenId, quantity)",
+  "function setApprovalForAll(operator, approved)",
+  "function burnBatch(account, ids[], values[])",
+  "function tokenURI(_tokenId) pure returns (string)",
+];
+
+// interface MyContract extends ethers.Contract {
+//   name: ContractMethod<[], string>;
+//   symbol: ContractMethod<[], string>;
+//   balanceOf: ContractMethod<[string], number>;
+//   trade: ContractMethod<[number[], number[], number[]], void>;
+//   forge: ContractMethod<[number[], number, number], void>;
+//   mint: ContractMethod<[string, number, number], void>;
+//   setApprovalForAll: ContractMethod<[string, boolean], void>;
+//   burnBatch: ContractMethod<[string, number[], number[]], void>;
+//   tokenURI: ContractMethod<[number], string>;
+// }
+
+// interface MyContract extends ethers.Contract {
+//   name(): Promise<string>;
+//   symbol(): Promise<string>;
+//   balanceOf(address: string): Promise<number>;
+//   trade(giveTokenId: number[], receiveTokenId: number[], amount: number[]): Promise<void>;
+//   forge(burnIds: number[], burnamount: number, _forgeId: number): Promise<void>;
+//   mint(to: string, tokenId: number, quantity: number): Promise<void>;
+//   setApprovalForAll(operator: string, approved: boolean): Promise<void>;
+//   burnBatch(account: string, ids: number[], values: number[]): Promise<void>;
+//   tokenURI(_tokenId: number): Promise<string>;
+// }
+
+// const contract: MyContract = new ethers.Contract(contractAddress, CONTRACT_ABI, provider) as MyContract;
+const contract = new ethers.Contract(contractAddress, CONTRACT_ABI, provider);
 
 export function NFT_Cards() {
   return (
@@ -41,13 +92,13 @@ export function NFT_Cards() {
               </div>
               <p className="no-underline">A majestic Alpha male dragonwolf overlooking his pack as night approaches.</p>
               <div className="flex nft-actions justify-between">
-                <button onClick={handleClick} data-tokenId="0" data-value="mint" className="btn btn-success">
+                <button onClick={handleClick} data-tokenid="0" data-value="mint" className="btn btn-success">
                   Mint
                 </button>
-                <button onClick={handleClick} data-tokenId="0" data-value="trade" className="btn btn-neutral">
+                <button onClick={handleClick} data-tokenid="0" data-value="trade" className="btn btn-neutral">
                   Trade
                 </button>
-                <button onClick={handleClick} data-tokenId="0" data-value="burn" className="btn btn-error">
+                <button onClick={handleClick} data-tokenid="0" data-value="burn" className="btn btn-error">
                   Burn
                 </button>
               </div>
@@ -76,13 +127,13 @@ export function NFT_Cards() {
               </div>
               <p className="no-underline">A majestic and shy female dragonwolf looking curious and wary.</p>
               <div className="flex nft-actions justify-between">
-                <button onClick={handleClick} data-tokenId="1" data-value="mint" className="btn btn-success">
+                <button onClick={handleClick} data-tokenid="1" data-value="mint" className="btn btn-success">
                   Mint
                 </button>
-                <button onClick={handleClick} data-tokenId="1" data-value="trade" className="btn btn-neutral">
+                <button onClick={handleClick} data-tokenid="1" data-value="trade" className="btn btn-neutral">
                   Trade
                 </button>
-                <button onClick={handleClick} data-tokenId="1" data-value="burn" className="btn btn-error">
+                <button onClick={handleClick} data-tokenid="1" data-value="burn" className="btn btn-error">
                   Burn
                 </button>
               </div>
@@ -113,13 +164,13 @@ export function NFT_Cards() {
                 A friendly female dragonwolf who looks soft and inviting. Pay close attention to the wings.
               </p>
               <div className="flex nft-actions justify-between">
-                <button onClick={handleClick} data-tokenId="2" data-value="mint" className="btn btn-success">
+                <button onClick={handleClick} data-tokenid="2" data-value="mint" className="btn btn-success">
                   Mint
                 </button>
-                <button onClick={handleClick} data-tokenId="2" data-value="trade" className="btn btn-neutral">
+                <button onClick={handleClick} data-tokenid="2" data-value="trade" className="btn btn-neutral">
                   Trade
                 </button>
-                <button onClick={handleClick} data-tokenId="2" data-value="burn" className="btn btn-error">
+                <button onClick={handleClick} data-tokenid="2" data-value="burn" className="btn btn-error">
                   Burn
                 </button>
               </div>
@@ -151,10 +202,10 @@ export function NFT_Cards() {
                 A dangerous and powerful Alpha female, matriarch of her pack. Claws that could rival those of Smaug.
               </p>
               <div className="flex nft-actions justify-between">
-                <button onClick={handleClick} data-tokenId="3" data-value="forge" className="btn btn-warning">
+                <button onClick={handleClick} data-tokenid="3" data-value="forge" className="btn btn-warning">
                   Forge
                 </button>
-                <button onClick={handleClick} data-tokenId="3" data-value="burn" className="btn btn-error">
+                <button onClick={handleClick} data-tokenid="3" data-value="burn" className="btn btn-error">
                   Burn
                 </button>
               </div>
@@ -188,10 +239,10 @@ export function NFT_Cards() {
                 A beautiful female with a crown-like set of horns. The red snout is particularly interesting.
               </p>
               <div className="flex nft-actions justify-between">
-                <button onClick={handleClick} data-tokenId="4" data-value="forge" className="btn btn-warning">
+                <button onClick={handleClick} data-tokenid="4" data-value="forge" className="btn btn-warning">
                   Forge
                 </button>
-                <button onClick={handleClick} data-tokenId="4" data-value="burn" className="btn btn-error">
+                <button onClick={handleClick} data-tokenid="4" data-value="burn" className="btn btn-error">
                   Burn
                 </button>
               </div>
@@ -221,10 +272,10 @@ export function NFT_Cards() {
               </div>
               <p className="no-underline">A dangerous and aggressive protector of his pack. Truly an apex predator.</p>
               <div className="flex nft-actions justify-between">
-                <button onClick={handleClick} data-tokenId="5" data-value="forge" className="btn btn-warning">
+                <button onClick={handleClick} data-tokenid="5" data-value="forge" className="btn btn-warning">
                   Forge
                 </button>
-                <button onClick={handleClick} data-tokenId="5" data-value="burn" className="btn btn-error">
+                <button onClick={handleClick} data-tokenid="5" data-value="burn" className="btn btn-error">
                   Burn
                 </button>
               </div>
@@ -255,10 +306,10 @@ export function NFT_Cards() {
                 The rare, beautiful and hypnotizing White Wolfdragon. The author's personal favorite.
               </p>
               <div className="flex nft-actions justify-between">
-                <button onClick={handleClick} data-tokenId="6" data-value="forge" className="btn btn-warning">
+                <button onClick={handleClick} data-tokenid="6" data-value="forge" className="btn btn-warning">
                   Forge
                 </button>
-                <button onClick={handleClick} data-tokenId="6" data-value="burn" className="btn btn-error">
+                <button onClick={handleClick} data-tokenid="6" data-value="burn" className="btn btn-error">
                   Burn
                 </button>
               </div>
@@ -276,7 +327,8 @@ export function NFT_Cards() {
 
 const handleClick = (event: { currentTarget: { getAttribute: (arg0: string) => any } }) => {
   const tokenAction = event.currentTarget.getAttribute("data-value");
-  const tokenId = event.currentTarget.getAttribute("data-tokenId");
+  const tokenId = event.currentTarget.getAttribute("data-tokenid");
+  console.log("Alchemy API Key:", ALCHEMY_ID);
 
   switch (tokenAction) {
     case "mint":
@@ -294,6 +346,45 @@ const handleClick = (event: { currentTarget: { getAttribute: (arg0: string) => a
       break;
   }
 
-  const outputStr = `tokenAction: ${tokenAction}, tokenId: ${tokenId}`;
-  console.log(outputStr);
+  console.log({ contract });
+  // console.log(contract.);
+  if (ALCHEMY_ID) {
+    alert({ ALCHEMY_ID });
+  }
+
+  debugger;
+  getContractName();
+  main();
+};
+
+async function getContractName() {
+  try {
+    const name = await contract.name();
+    console.log("Contract name:", name);
+  } catch (error) {
+    console.error("Error fetching contract name:", error);
+  }
+}
+
+// const provider = new ethers.providers.AlchemyProvider("maticmum",`https://polygon-amoy.ALCHEMY.io/v3/${ALCHEMY_ID}`);
+// const provider = new ethers.providers.AlchemyProvider("maticmum", ALCHEMY_ID);
+// const provider = new ethers.providers.InfuraProvider("maticmum");
+
+export const main = async () => {
+  const name = await contract.name();
+  const symbol = await contract.symbol();
+  const totalSupply = await contract.totalSupply();
+
+  console.log(`\nReading from ${contractAddress}\n`);
+  console.log(`Name: ${name}`);
+  console.log(`Symbol: ${symbol}`);
+  console.log(`Total Supply: ${totalSupply}\n`);
+
+  const balance = await contract.balanceOf("msg.sender");
+  const balance2 = await provider.getBalance("0x52491413aFCff113bbFE8d4814124FBEc1486D27");
+
+  console.log(`Balance Returned: ${balance}`);
+  alert(`Balance Returned: ${balance}`);
+  alert(`Balance2 Returned: ${balance2}`);
+  console.log(`Balance Formatted: ${ethers.utils.formatEther(balance)}\n`);
 };
