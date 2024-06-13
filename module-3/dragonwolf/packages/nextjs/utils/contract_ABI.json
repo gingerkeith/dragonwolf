@@ -26,15 +26,19 @@
     "stateMutability": "view"
   },
   {
-    "type": "function",
-    "name": "balanceOf",
     "inputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "account",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
       }
     ],
+    "name": "balanceOf",
     "outputs": [
       {
         "internalType": "uint256",
@@ -42,7 +46,8 @@
         "type": "uint256"
       }
     ],
-    "stateMutability": "view"
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "type": "function",

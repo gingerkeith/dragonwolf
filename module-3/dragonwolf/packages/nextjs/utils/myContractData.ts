@@ -9,15 +9,17 @@ const API_KEY_ID = process.env.NEXT_PUBLIC_INFURA_API_KEY;
 //example -- testing API
 const settings = {
   apiKey: API_KEY_ID,
-  network: Network.MATIC_AMOY,
+  // network: Network.MATIC_AMOY,
+  network: Network.maticmum,
 };
 const alchemy = new Alchemy(settings);
 const nfts = alchemy.nft.getNftsForOwner("vitalik.eth");
 console.log(`%%%_NFTs...${nfts}`);
 alchemy.core.nfts.then(console.log);
 
-const provider = new ethers.providers.JsonRpcProvider(`https://polygon-amoy.infura.io/v3/${API_KEY_ID}`);
-// const provider = new ethers.providers.InfuraProvider("maticmum");
+// const provider = new AlchemyProvider("maticmum", API_KEY_ID);
+debugger;
+const provider = new ethers.providers.AlchemyProvider("maticmum", API_KEY_ID);
 const contractAddress = "0xC6760c2Fd1809742B4577aAaa4013C92e9Cd89bB";
 //const CONTRACT_ABI = contractABI;
 const contract = new ethers.Contract(contractAddress, contractABI, provider);
@@ -38,7 +40,7 @@ export const main = async () => {
   console.log(`Balance Returned: ${balance}`);
   alert(`Balance Returned: ${balance}`);
   alert(`Balance2 Returned: ${balance2}`);
-  console.log(`Balance Formatted: ${ethers.utils.formatEther(balance)}\n`);
+  // console.log(`Balance Formatted: ${ethers.utils.formatEther(balance)}\n`);
 };
 
 // main();

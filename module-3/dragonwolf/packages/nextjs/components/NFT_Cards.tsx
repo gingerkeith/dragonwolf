@@ -1,30 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import contractABI from "../utils/contract_ABI.json";
 import { AlchemyProvider } from "@ethersproject/providers";
-// import * as dotenv from "dotenv";
-import { ContractInterface, ContractMethod, ethers } from "ethers";
+import { ethers, JsonRpcProvider } from "ethers";
+// import { * } from "../utils/myContractData.ts";
 
 // dotenv.config();
-
-// import { main } from "~~/utils/myContractData.ts";
-
-//packages\nextjs\utils\myContractData.ts
-const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+const chainName = "amoy";
+const chainId = 80002;
+const providerUrl = 'https://polygon-amoy.drpc.org';
+  const network = new ethers.Network(chainName, chainId);
+  const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+  const provider = new ethers.JsonRpcProvider(providerUrl, network, {
+    staticNetwork: network,
+    });
+  
+  const checkNetwork = () => {
+    // //if/then and if fails, destroy provider?
+    console.log(provider._getConnection());
+  }
+// const provider = new ethers.JsonRpcProvider('matic-amoy', ALCHEMY_ID);
 // const provider = new ethers.providers.AlchemyProvider("maticmum", `https://polygon-amoy.ALCHEMY.io/v3/${ALCHEMY_ID}`);
-const provider = new ethers.providers.AlchemyProvider("maticmum", `https://polygon-amoy.ALCHEMY.io/v3/${ALCHEMY_ID}`);
+// const provider = new ethers.providers.InfuraProvider("maticmum");
+// const provider = new AlchemyProvider("matic-amoy",ALCHEMY_ID);
+// const provider = new ethers.providers.AlchemyProvider("maticmum", ALCHEMY_ID);
 const contractAddress = "0xC6760c2Fd1809742B4577aAaa4013C92e9Cd89bB";
-const CONTRACT_ABI = [
-  "function name() view returns (string)",
-  "function symbol() view returns (string)",
-  "function balanceOf(address) view returns (uint)",
-  "function trade(giveTokenId[], receiveTokenId[], amount[])",
-  "function forge(burnIds[], burnamount, _forgeId)",
-  "function mint(to, tokenId, quantity)",
-  "function setApprovalForAll(operator, approved)",
-  "function burnBatch(account, ids[], values[])",
-  "function tokenURI(_tokenId) pure returns (string)",
-];
 
 // interface MyContract extends ethers.Contract {
 //   name: ContractMethod<[], string>;
@@ -51,7 +52,7 @@ const CONTRACT_ABI = [
 // }
 
 // const contract: MyContract = new ethers.Contract(contractAddress, CONTRACT_ABI, provider) as MyContract;
-const contract = new ethers.Contract(contractAddress, CONTRACT_ABI, provider);
+const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
 export function NFT_Cards() {
   return (
@@ -70,7 +71,7 @@ export function NFT_Cards() {
           </div>
         </div>
 
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
+        <div className="flex-grow bg-base-300 w-full mt-1 px-8 py-12">
           <div className="flex justify-center items-center gap-12 flex-col sm:flex-row mb-12">
             {/* NFT_0 */}
             <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
@@ -328,42 +329,25 @@ export function NFT_Cards() {
 const handleClick = (event: { currentTarget: { getAttribute: (arg0: string) => any } }) => {
   const tokenAction = event.currentTarget.getAttribute("data-value");
   const tokenId = event.currentTarget.getAttribute("data-tokenid");
-  console.log("Alchemy API Key:", ALCHEMY_ID);
-
+checkNetwork();
   switch (tokenAction) {
     case "mint":
       //call minting code
-      alert(`MINT_${tokenId}`);
       break;
     case "trade":
-      alert(`TRADE_${tokenId}`);
       break;
     case "forge":
-      alert(`FORGE_${tokenId}`);
       break;
     default: //burninating
-      alert(`BURNINATING__${tokenId}`);
+      console.log("TROGDOR STRIKES AGAIN!!!");
       break;
-  }
-
-  console.log({ contract });
-  // console.log(contract.);
-  if (ALCHEMY_ID) {
-    alert({ ALCHEMY_ID });
   }
 
   debugger;
-  getContractName();
   main();
 };
 
-async function getContractName() {
-  try {
-    const name = await contract.name();
-    console.log("Contract name:", name);
-  } catch (error) {
-    console.error("Error fetching contract name:", error);
-  }
+async function getContractData() {
 }
 
 // const provider = new ethers.providers.AlchemyProvider("maticmum",`https://polygon-amoy.ALCHEMY.io/v3/${ALCHEMY_ID}`);
@@ -373,18 +357,33 @@ async function getContractName() {
 export const main = async () => {
   const name = await contract.name();
   const symbol = await contract.symbol();
-  const totalSupply = await contract.totalSupply();
-
   console.log(`\nReading from ${contractAddress}\n`);
   console.log(`Name: ${name}`);
   console.log(`Symbol: ${symbol}`);
-  console.log(`Total Supply: ${totalSupply}\n`);
+  
+  // try {
+  //   const nftURI = await contract.tokenURI(6);
+  //   console.log("TokenURI:", nftURI);
+  // } catch (error) {
+  //   console.error("Error fetching contract data:", error);
+  // }
 
-  const balance = await contract.balanceOf("msg.sender");
-  const balance2 = await provider.getBalance("0x52491413aFCff113bbFE8d4814124FBEc1486D27");
 
-  console.log(`Balance Returned: ${balance}`);
-  alert(`Balance Returned: ${balance}`);
-  alert(`Balance2 Returned: ${balance2}`);
-  console.log(`Balance Formatted: ${ethers.utils.formatEther(balance)}\n`);
+  debugger;
+   try {
+    const balance2 = await contract.balanceOf("0x52491413aFCff113bbFE8d4814124FBEc1486D27", 0);
+    console.log(`Balance Returned: ${balance2}`);
+    alert(`Balance2 Returned: ${balance2}`);
+  } catch (error) {
+    console.error("Error fetching contract data:", error);
+  }
+  
+  try {
+    const balance = await contract.balanceOf("msg.sender", 0);
+    console.log(`Balance Returned(msg.sender): ${balance}`);
+  } catch (error) {
+    console.error("Error fetching contract data:", error);
+  }
+
+ 
 };
