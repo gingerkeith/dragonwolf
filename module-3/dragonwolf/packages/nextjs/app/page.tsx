@@ -7,7 +7,7 @@ import { Address } from "~~/components/scaffold-eth";
 
 const Home: NextPage = () => {
   // const Home = () => {
-  const { address: connectedAddress } = useAccount();
+  // const { address: connectedAddress } = useAccount();
   // const [dragonwolfData, setDragonwolfData] = useState<NFTData[]>([]);
 
   return (
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   );
 };
 
-function tokenToMint(tokenId) {
+function tokenToMint(tokenId: Number) {
   switch (tokenId) {
     case 0:
     case 1:

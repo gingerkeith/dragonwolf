@@ -2,59 +2,46 @@
 
 import Link from "next/link";
 import contractABI from "../utils/contract_ABI.json";
+import { /*Address as AddressType,*/ checksumAddress, getAddress } from "viem";
+import { Address, Balance } from "~~/components/scaffold-eth";
+import { useAccount, useReadContract, useBalance } from "wagmi";
 import { AlchemyProvider } from "@ethersproject/providers";
 import { ethers, JsonRpcProvider } from "ethers";
 // import { * } from "../utils/myContractData.ts";
+import { AddressProps } from "~~/components/scaffold-eth/Address";
+
 
 // dotenv.config();
 const chainName = "amoy";
 const chainId = 80002;
 const providerUrl = 'https://polygon-amoy.drpc.org';
-  const network = new ethers.Network(chainName, chainId);
-  const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
-  const provider = new ethers.JsonRpcProvider(providerUrl, network, {
-    staticNetwork: network,
-    });
-  
-  const checkNetwork = () => {
-    // //if/then and if fails, destroy provider?
-    console.log(provider._getConnection());
-  }
-// const provider = new ethers.JsonRpcProvider('matic-amoy', ALCHEMY_ID);
-// const provider = new ethers.providers.AlchemyProvider("maticmum", `https://polygon-amoy.ALCHEMY.io/v3/${ALCHEMY_ID}`);
-// const provider = new ethers.providers.InfuraProvider("maticmum");
-// const provider = new AlchemyProvider("matic-amoy",ALCHEMY_ID);
-// const provider = new ethers.providers.AlchemyProvider("maticmum", ALCHEMY_ID);
+const network = new ethers.Network(chainName, chainId);
 const contractAddress = "0xC6760c2Fd1809742B4577aAaa4013C92e9Cd89bB";
-
-// interface MyContract extends ethers.Contract {
-//   name: ContractMethod<[], string>;
-//   symbol: ContractMethod<[], string>;
-//   balanceOf: ContractMethod<[string], number>;
-//   trade: ContractMethod<[number[], number[], number[]], void>;
-//   forge: ContractMethod<[number[], number, number], void>;
-//   mint: ContractMethod<[string, number, number], void>;
-//   setApprovalForAll: ContractMethod<[string, boolean], void>;
-//   burnBatch: ContractMethod<[string, number[], number[]], void>;
-//   tokenURI: ContractMethod<[number], string>;
-// }
-
-// interface MyContract extends ethers.Contract {
-//   name(): Promise<string>;
-//   symbol(): Promise<string>;
-//   balanceOf(address: string): Promise<number>;
-//   trade(giveTokenId: number[], receiveTokenId: number[], amount: number[]): Promise<void>;
-//   forge(burnIds: number[], burnamount: number, _forgeId: number): Promise<void>;
-//   mint(to: string, tokenId: number, quantity: number): Promise<void>;
-//   setApprovalForAll(operator: string, approved: boolean): Promise<void>;
-//   burnBatch(account: string, ids: number[], values: number[]): Promise<void>;
-//   tokenURI(_tokenId: number): Promise<string>;
-// }
-
-// const contract: MyContract = new ethers.Contract(contractAddress, CONTRACT_ABI, provider) as MyContract;
+const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+const provider = new ethers.JsonRpcProvider(providerUrl, network, {staticNetwork: network});
 const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
+
 export function NFT_Cards() {
+  const { address: connectedAddress } = useAccount();
+  console.log({connectedAddress});
+  
+  const { data: tokenBal } = useBalance({
+    address: connectedAddress,
+  })
+  // const { data: tokenBal } = useReadContract({
+  //   ...contractABI,
+  //   address: connectedAddress,
+  //   functionName: 'balanceOf',
+  //   // args: [checksumAddress],
+  //   // args: [connectedAddress],
+  // })
+  // const tokenQuantity = contract.balanceOf(connectedAddress, 0);
+  console.log({tokenBal});
+  // debugger;
+  // getContractData();
+
+  //more code x logic here
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
@@ -329,7 +316,6 @@ export function NFT_Cards() {
 const handleClick = (event: { currentTarget: { getAttribute: (arg0: string) => any } }) => {
   const tokenAction = event.currentTarget.getAttribute("data-value");
   const tokenId = event.currentTarget.getAttribute("data-tokenid");
-checkNetwork();
   switch (tokenAction) {
     case "mint":
       //call minting code
@@ -342,24 +328,27 @@ checkNetwork();
       console.log("TROGDOR STRIKES AGAIN!!!");
       break;
   }
-
-  debugger;
+        
+  // debugger;
   main();
 };
 
 async function getContractData() {
+  try {
+    const tokenQty = await contract.balanceOf("0x52491413aFCff113bbFE8d4814124FBEc1486D27", 0);
+    console.log({tokenQty});
+  }
+    catch (error) {
+    console.error("Error fetching contract data:", error);
+  }
+
 }
 
-// const provider = new ethers.providers.AlchemyProvider("maticmum",`https://polygon-amoy.ALCHEMY.io/v3/${ALCHEMY_ID}`);
-// const provider = new ethers.providers.AlchemyProvider("maticmum", ALCHEMY_ID);
-// const provider = new ethers.providers.InfuraProvider("maticmum");
-
 export const main = async () => {
+
   const name = await contract.name();
-  const symbol = await contract.symbol();
   console.log(`\nReading from ${contractAddress}\n`);
   console.log(`Name: ${name}`);
-  console.log(`Symbol: ${symbol}`);
   
   // try {
   //   const nftURI = await contract.tokenURI(6);
@@ -369,7 +358,7 @@ export const main = async () => {
   // }
 
 
-  debugger;
+  // debugger;
    try {
     const balance2 = await contract.balanceOf("0x52491413aFCff113bbFE8d4814124FBEc1486D27", 0);
     console.log(`Balance Returned: ${balance2}`);
@@ -378,12 +367,5 @@ export const main = async () => {
     console.error("Error fetching contract data:", error);
   }
   
-  try {
-    const balance = await contract.balanceOf("msg.sender", 0);
-    console.log(`Balance Returned(msg.sender): ${balance}`);
-  } catch (error) {
-    console.error("Error fetching contract data:", error);
-  }
-
  
-};
+}
