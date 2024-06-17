@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 // @refresh reset
 import { Balance } from "../Balance";
 import { AddressInfoDropdown } from "./AddressInfoDropdown";
@@ -7,6 +8,8 @@ import { AddressQRCodeModal } from "./AddressQRCodeModal";
 import { WrongNetworkDropdown } from "./WrongNetworkDropdown";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Address } from "viem";
+import { useAccount } from "wagmi";
+import { useWallet } from "~~/components/WalletProvider";
 import { useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
@@ -17,14 +20,23 @@ import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
 export const RainbowKitCustomConnectButton = () => {
   const networkColor = useNetworkColor();
   const { targetNetwork } = useTargetNetwork();
+  const { address: connectedAddress } = useAccount();
+  // const { setAddress } = useWallet();
 
+  // useEffect(() => {
+  //   if (connectedAddress) {
+  //     setAddress(connectedAddress);
+  //   }
+  // }, [connectedAddress, setAddress]);
+  
+  
   return (
     <ConnectButton.Custom>
       {({ account, chain, openConnectModal, mounted }) => {
         const connected = mounted && account && chain;
         const blockExplorerAddressLink = account
-          ? getBlockExplorerAddressLink(targetNetwork, account.address)
-          : undefined;
+        ? getBlockExplorerAddressLink(targetNetwork, account.address)
+        : undefined;
 
         return (
           <>

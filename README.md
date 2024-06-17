@@ -1,1 +1,0 @@
-metana-bootcamp

@@ -4,16 +4,17 @@ import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { NFT_Cards } from "~~/components/NFT_Cards";
 import { Address } from "~~/components/scaffold-eth";
+import { WalletProvider } from "../components/WalletProvider";
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ Component, pageProps }) => {
   // const Home = () => {
   // const { address: connectedAddress } = useAccount();
   // const [dragonwolfData, setDragonwolfData] = useState<NFTData[]>([]);
 
   return (
-    <>
-      <NFT_Cards />
-    </>
+    <WalletProvider>
+      <NFT_Cards Component={undefined} pageProps={undefined} />
+    </WalletProvider>
   );
 };
 

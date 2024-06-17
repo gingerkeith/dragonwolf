@@ -9,22 +9,61 @@ import { AlchemyProvider } from "@ethersproject/providers";
 import { ethers, JsonRpcProvider } from "ethers";
 // import { * } from "../utils/myContractData.ts";
 import { AddressProps } from "~~/components/scaffold-eth/Address";
+import { useEffect, useState } from "react";
+import { useWallet, WalletProvider } from "./WalletProvider";
 
 
 // dotenv.config();
+const contractAddress = "0xC6760c2Fd1809742B4577aAaa4013C92e9Cd89bB";
+const providerUrl = 'https://polygon-amoy.drpc.org';
 const chainName = "amoy";
 const chainId = 80002;
-const providerUrl = 'https://polygon-amoy.drpc.org';
 const network = new ethers.Network(chainName, chainId);
-const contractAddress = "0xC6760c2Fd1809742B4577aAaa4013C92e9Cd89bB";
-const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
 const provider = new ethers.JsonRpcProvider(providerUrl, network, {staticNetwork: network});
 const contract = new ethers.Contract(contractAddress, contractABI, provider);
+const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+// const signer = provider.getSigner();
 
 
-export function NFT_Cards() {
+export async function NFT_Cards({ Component, pageProps }) {
+  const { address } = useWallet();
+  const [balances, setBalances] = useState<number[]>([]); // State to hold balances for different NFTs
   const { address: connectedAddress } = useAccount();
   console.log({connectedAddress});
+  
+  const tokenQty = await contract.balanceOf(address, 0);
+  console.log({address});
+  console.log({tokenQty});
+  debugger;
+
+
+// try {
+//   }
+//     catch (error) {
+//     console.error("Error fetching contract data:", error);
+//   }
+
+  useEffect(() => {
+    const fetchBalances = async () => {
+      if (!address) {
+        console.error("No wallet address found.");
+        return;
+      }
+
+      try {
+        const tokenIds = [0, 1, 2, 3, 4, 5, 6]; // Add more token IDs as needed
+        const balancePromises = tokenIds.map(tokenId => contract.balanceOf(address, tokenId));
+        const fetchedBalances = await Promise.all(balancePromises);
+        setBalances(fetchBalances.map(b => b.toNumber()));
+      } catch (error) {
+        console.error('Error fetching contract data:', error);
+      }
+    };
+
+    fetchBalances();
+  }, [address]);
+
+  
   
   const { data: tokenBal } = useBalance({
     address: connectedAddress,
@@ -60,23 +99,24 @@ export function NFT_Cards() {
 
         <div className="flex-grow bg-base-300 w-full mt-1 px-8 py-12">
           <div className="flex justify-center items-center gap-12 flex-col sm:flex-row mb-12">
-            {/* NFT_0 */}
-            <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
+            {balances.map((balance, index) => (
+              // {/* NFT_0 */}
+            <div key={index} className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
               <Link
                 href="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/0"
                 passHref
                 className="link"
                 target="_blank"
                 rel="noopener noreferrer"
-              >
+                >
                 <img
                   src="https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/0"
                   alt="NFT_0 image"
-                ></img>
+                  ></img>
               </Link>
               <div className="flex justify-between items-center">
-                <div>Dragon-Wolf #0</div>
-                <div>Qty: x{}</div>
+                <div>Dragon-Wolf #{index}</div>
+                <div>`Qty: ${tokenQty}(tokenQty), {balance}(balance)`</div>
               </div>
               <p className="no-underline">A majestic Alpha male dragonwolf overlooking his pack as night approaches.</p>
               <div className="flex nft-actions justify-between">
@@ -92,8 +132,9 @@ export function NFT_Cards() {
               </div>
               {/* <Link href="#" passHref className="link">
                 view on OpenSea
-              </Link>{" "} */}
+                </Link>{" "} */}
             </div>
+                ))}
 
             {/* NFT_1 */}
             <div className="flex flex-col bg-base-100 px-5 py-5 max-w-xs rounded-3xl">
@@ -334,21 +375,13 @@ const handleClick = (event: { currentTarget: { getAttribute: (arg0: string) => a
 };
 
 async function getContractData() {
-  try {
-    const tokenQty = await contract.balanceOf("0x52491413aFCff113bbFE8d4814124FBEc1486D27", 0);
-    console.log({tokenQty});
-  }
-    catch (error) {
-    console.error("Error fetching contract data:", error);
-  }
+  
 
 }
 
 export const main = async () => {
 
-  const name = await contract.name();
-  console.log(`\nReading from ${contractAddress}\n`);
-  console.log(`Name: ${name}`);
+  
   
   // try {
   //   const nftURI = await contract.tokenURI(6);
