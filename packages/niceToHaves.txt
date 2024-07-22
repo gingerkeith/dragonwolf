@@ -1,0 +1,68 @@
+# Nice To Haves -- an ongoins list of things I want to change/add/tweak/improve/etc. to this project over time
+
+## Bug Fixes
+- [ ] Fix the undisplayed imgs...
+- [ ] 
+
+
+## Features
+- [ ] deploy to Vercel
+- [ ] 
+
+## Enhancements
+- [ ] Optimize performance
+- [ ] Refactor code for better maintainability
+- [ ] push all card interaction button to the bottom of the card, so they're all the same
+- [ ] react toastify OR, dig into the "notifications" built-in. (Look at useTransactor.tsx and notification.tsx)
+- [ ] add code so the Quantity text renders red if it's 0 (indicating a balance of zero - they don't have any tokens) or green if > 0.
+- [ ] remove all commented code chunks (global search for "//")
+- [ ] 
+- [ ] 
+
+## UI/UX Improvements
+- [ ] make it so when you click on the image, it asks the User whether they want to look at the image on OpenSea, (other one I can never remember), or IPFS
+- [ ] 
+
+## Testing
+- [ ] Write unit tests
+- [ ] 
+
+## Miscellaneous
+- [ ] Add this somewhere to be seen only by the dev tools...
+      /* MADE BY THE CRYPTO GINGER
+                                                                          
+     (                         )      (                                   
+     )\   (    (            ( /(      )\ )   (          (  (     (   (    
+   (((_)  )(   )\ )  `  )   )\()) (  (()/(   )\   (     )\))(   ))\  )(   
+   )\___ (()\ (()/(  /(/(  (_))/  )\  /(_))_((_)  )\ ) ((_))\  /((_)(()\  
+  ((/ __| ((_) )(_))((_)_\ | |_  ((_)(_)) __|(_) _(_/(  (()(_)(_))   ((_) 
+   | (__ | '_|| || || '_ \)|  _|/ _ \  | (_ || || ' \))/ _` | / -_) | '_| 
+    \___||_|   \_, || .__/  \__|\___/   \___||_||_||_| \__, | \___| |_|   
+               |__/ |_|                                |___/              
+  
+                                    
+     (                     )    (                              
+     )\  (   (          ( /(    )\ )  (        (  (    (  (    
+   (((_) )(  )\ ) `  )  )\())( (()/(  )\  (    )\))(  ))\ )(   
+   )\___(()\(()/( /(/( (_))/ )\ /(_))((_) )\ )((_))\ /((_|()\  
+  ((/ __|((_))(_)|(_)_\| |_ ((_|_)) __(_)_(_/( (()(_|_))  ((_) 
+   | (__| '_| || | '_ \)  _/ _ \ | (_ | | ' \)) _` |/ -_)| '_| 
+    \___|_|  \_, | .__/ \__\___/  \___|_|_||_|\__, |\___||_|   
+             |__/|_|                          |___/            
+  
+     ______                 __        _______                      
+    / ____/______  ______  / /_____  / ____(_)___  ____ ____  _____
+   / /   / ___/ / / / __ \/ __/ __ \/ / __/ / __ \/ __ `/ _ \/ ___/
+  / /___/ /  / /_/ / /_/ / /_/ /_/ / /_/ / / / / / /_/ /  __/ /    
+  \____/_/   \__, / .___/\__/\____/\____/_/_/ /_/\__, /\___/_/     
+            /____/_/                            /____/             
+  
+    ______ .______     ____    ____ .______   .___________.  ______     _______  __  .__   __.   _______  _______ .______      
+   /      ||   _  \    \   \  /   / |   _  \  |           | /  __  \   /  _____||  | |  \ |  |  /  _____||   ____||   _  \     
+  |  ,----'|  |_)  |    \   \/   /  |  |_)  | `---|  |----`|  |  |  | |  |  __  |  | |   \|  | |  |  __  |  |__   |  |_)  |    
+  |  |     |      /      \_    _/   |   ___/      |  |     |  |  |  | |  | |_ | |  | |  . `  | |  | |_ | |   __|  |      /     
+  |  `----.|  |\  \----.   |  |     |  |          |  |     |  `--'  | |  |__| | |  | |  |\   | |  |__| | |  |____ |  |\  \----.
+   \______|| _| `._____|   |__|     | _|          |__|      \______/   \______| |__| |__| \__|  \______| |_______|| _| `._____|
+                                                                                                                               
+  
+  */
