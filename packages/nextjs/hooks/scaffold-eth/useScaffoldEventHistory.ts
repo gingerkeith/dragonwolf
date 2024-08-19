@@ -90,6 +90,7 @@ export const useScaffoldEventHistory = <
 
           const newEvents = [];
           for (let i = logs.length - 1; i >= 0; i--) {
+            // @ts-expect-error
             newEvents.push({
               log: logs[i],
               args: logs[i].args,

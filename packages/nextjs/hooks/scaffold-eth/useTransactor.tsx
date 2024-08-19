@@ -53,6 +53,7 @@ export const useTransactor = (_walletClient?: WalletClient): TransactionFunc => 
       // Get full transaction from public client
       const publicClient = getPublicClient(wagmiConfig);
 
+      // @ts-expect-error
       notificationId = notification.loading(<TxnNotification message="Awaiting user confirmation" />);
       if (typeof tx === "function") {
         // Tx is already prepared by the caller
@@ -63,10 +64,12 @@ export const useTransactor = (_walletClient?: WalletClient): TransactionFunc => 
       } else {
         throw new Error("Incorrect transaction passed to transactor");
       }
+      // @ts-expect-error
       notification.remove(notificationId);
 
       const blockExplorerTxURL = network ? getBlockExplorerTxLink(network, transactionHash) : "";
-
+      
+      // @ts-expect-error
       notificationId = notification.loading(
         <TxnNotification message="Waiting for transaction to complete." blockExplorerLink={blockExplorerTxURL} />,
       );
@@ -75,6 +78,7 @@ export const useTransactor = (_walletClient?: WalletClient): TransactionFunc => 
         hash: transactionHash,
         confirmations: options?.blockConfirmations,
       });
+      // @ts-expect-error
       notification.remove(notificationId);
 
       notification.success(

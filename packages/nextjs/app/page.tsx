@@ -1,7 +1,7 @@
 "use client";
 
 import type { NextPage } from "next";
-import { NFT_Cards } from "../components/NFT_Cards";
+import { NFT_Cards } from "~~/components/NFT_Cards";
 
 const Home: NextPage = () => {
   return (

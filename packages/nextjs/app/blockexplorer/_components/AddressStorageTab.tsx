@@ -20,13 +20,16 @@ export const AddressStorageTab = ({ address }: { address: Address }) => {
 
         while (true) {
           const storageAtPosition = await publicClient.getStorageAt({
+          // @ts-ignore
             address: address,
+            // address: address as `0x${string}`,
             slot: toHex(idx),
           });
 
           if (storageAtPosition === "0x" + "0".repeat(64)) break;
 
           if (storageAtPosition) {
+          // @ts-expect-error
             storageData.push(storageAtPosition);
           }
 

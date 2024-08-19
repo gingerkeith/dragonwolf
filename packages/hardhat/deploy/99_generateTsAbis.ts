@@ -80,12 +80,9 @@ function getContractDataFromDeployments() {
     throw Error("At least one other deployment script should exist to generate an actual contract.");
   }
   const output = {} as Record<string, any>;
-  console.log({ output });
   for (const chainName of getDirectories(DEPLOYMENTS_DIR)) {
     const chainId = fs.readFileSync(`${DEPLOYMENTS_DIR}/${chainName}/.chainId`).toString();
-    console.log({ chainId });
     const contracts = {} as Record<string, any>;
-    console.log({ contracts });
     for (const contractName of getContractNames(`${DEPLOYMENTS_DIR}/${chainName}`)) {
       const { abi, address, metadata } = JSON.parse(
         fs.readFileSync(`${DEPLOYMENTS_DIR}/${chainName}/${contractName}.json`).toString(),
@@ -113,16 +110,14 @@ const generateTsAbis: DeployFunction = async function () {
   if (!fs.existsSync(TARGET_DIR)) {
     fs.mkdirSync(TARGET_DIR);
   }
-  fs.writeFileSync(
-    `${TARGET_DIR}deployedContracts.ts`,
-    prettier.format(
-      `${generatedContractComment} import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract"; \n\n
+  const formattedContent = await prettier.format(
+    `${generatedContractComment} import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract"; \n\n
  const deployedContracts = {${fileContent}} as const; \n\n export default deployedContracts satisfies GenericContractsDeclaration`,
-      {
-        parser: "typescript",
-      },
-    ),
+    {
+      parser: "typescript",
+    },
   );
+  fs.writeFileSync(`${TARGET_DIR}deployedContracts.ts`, formattedContent);
 
   console.log(`📝 Updated TypeScript contract definition file on ${TARGET_DIR}deployedContracts.ts`);
 };

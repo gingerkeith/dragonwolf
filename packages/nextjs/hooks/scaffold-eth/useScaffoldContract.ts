@@ -28,6 +28,7 @@ export const useScaffoldContract = <
 
   let contract = undefined;
   if (deployedContractData && publicClient) {
+    // @ts-expect-error
     contract = getContract<
       Transport,
       Address,

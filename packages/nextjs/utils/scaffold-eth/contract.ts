@@ -257,6 +257,7 @@ export type EventFilters<
   IndexedEventInputs<TContractName, TEventName> extends never
     ? never
     : {
+      // @ts-expect-error
         [Key in IsContractDeclarationMissing<
           any,
           IndexedEventInputs<TContractName, TEventName>["name"]

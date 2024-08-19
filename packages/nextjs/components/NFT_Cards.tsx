@@ -5,19 +5,22 @@ import Link from "next/link";
 import contractABI from "../utils/contract_ABI.json";
 import forgeContractABI from "../utils/forge_contract_ABI.json";
 import { ethers } from "ethers";
+// import { isatty } from "tty";
 import { useAccount, useWriteContract } from "wagmi";
-import { Address } from "~~/components/scaffold-eth";
 import { useTransactor } from "~~/hooks/scaffold-eth";
 
 const bafyImgLink = "https://ipfs.io/ipfs/bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe/";
 const DW_CONTRACT_ADDRESS = "0xC65f39B9706504538fa642BA93190A6c14afa1Fe";
 const FORGE_CONTRACT_ADDRESS = "0xBD8e63F4e29171742d81b5566ca030F3e2FdBDCE";
-const providerUrl = "https://polygon-amoy.drpc.org";
-const chainName = "amoy";
+// const providerUrl = "https://polygon-amoy.drpc.org";
+const alchemyApiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+const providerUrl = `https://polygon-amoy.g.alchemy.com/v2/${alchemyApiKey}`;
+const chainName = "amoy"; //Amoy (capital 'A'?) // 'matic-amoy', from the ethers github docs
 const chainId = 80002;
 const network = new ethers.Network(chainName, chainId);
-const provider = new ethers.JsonRpcProvider(providerUrl, network, { staticNetwork: network });
-const privateKey = process.env.NEXT_PUBLIC_DEPLOYER_PRIVATE_KEY || ""; // Provide a default value if DEPLOYER_PRIVATE_KEY is undefined
+// const provider = new ethers.JsonRpcProvider(providerUrl, network, { staticNetwork: network });
+const provider = new ethers.JsonRpcProvider(providerUrl, network); //, { staticNetwork: network });
+const privateKey = process.env.NEXT_PUBLIC_DEPLOYER_PRIVATE_KEY || "";
 const wallet = new ethers.Wallet(privateKey, provider);
 const dwContract = new ethers.Contract(DW_CONTRACT_ADDRESS, contractABI, wallet);
 const forgeContract = new ethers.Contract(FORGE_CONTRACT_ADDRESS, forgeContractABI, wallet);
@@ -32,6 +35,7 @@ export function NFT_Cards() {
   const [balances, setBalances] = useState<number[]>([]);
   const { address: connectedAddress } = useAccount();
   const [isClient, setIsClient] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -50,26 +54,80 @@ export function NFT_Cards() {
     }
   }, [connectedAddress]);
 
-  useEffect(() => {
-    if (isClient) {
-      fetchBalances();
-    }
-  }, [connectedAddress, fetchBalances, isClient]);
+  const checkApproval = useCallback(async () => {
+    if (!dwContract || !connectedAddress || isApproved) return;
 
-  const checkApproval = async () => {
-    if (!dwContract || !connectedAddress) return;
-    const isApproved: boolean = await dwContract.isApprovedForAll(connectedAddress, FORGE_CONTRACT_ADDRESS);
-    console.log({ isApproved });
-    if (!isApproved) {
-      const approvalTx = await dwContract.setApprovalForAll(FORGE_CONTRACT_ADDRESS, true);
-      await approvalTx.wait();
-      console.log("Approval set for all tokens.");
-      alert("Approval set for all tokens. You can now forge NFTs 3 - 6.");
+    try {
+      const approvalStatus: boolean = await dwContract.isApprovedForAll(connectedAddress, FORGE_CONTRACT_ADDRESS);
+      console.log("Approval status:", approvalStatus);
+      // debugger;
+
+      if (!approvalStatus) {
+        console.log("Approval not set, setting approval for all tokens...");
+        alert(
+          `Quick note... In order to FORGE a token, first you must approve the Forging smart contract to operate for your address.\nWe'll take care of that for you now.\nClick OK to proceed and confirm the transaction request popup.`,
+        );
+        await approveOperator();
+      }
+
+      const checkApprovalStatus: boolean = await dwContract.isApprovedForAll(connectedAddress, FORGE_CONTRACT_ADDRESS);
+      console.log(checkApprovalStatus);
+
+      //??
+      if (checkApprovalStatus) {
+        //TODO: it's not getting in here, it's not waiting for approveOperator() to finish and return...
+        console.log("Approval set for all tokens.");
+        alert("Approval set for all tokens. You can now forge NFTs 3 - 6.");
+      } else {
+        console.log("Approval was already set.");
+      }
+
+      setIsApproved(true);
+    } catch (error: any) {
+      console.error("Error checking or setting approval:", error.message);
     }
-  };
+
+    //this code doesn't work...
+    // const approvalStatus: boolean = await dwContract.isApprovedForAll(connectedAddress, FORGE_CONTRACT_ADDRESS);
+    // debugger;
+    // console.log({ approvalStatus });
+    // if (!approvalStatus) {
+    //   const approvalTx = await dwContract.setApprovalForAll(FORGE_CONTRACT_ADDRESS, true);
+    //   await approvalTx.wait();
+    //   console.log("Approval set for all tokens.");
+    //   alert("Approval set for all tokens. You can now forge NFTs 3 - 6.");
+    // }
+    // setIsApproved(true);
+  }, [connectedAddress, isApproved]);
+
+  useEffect(() => {
+    if (isClient && connectedAddress) {
+      fetchBalances();
+      // checkApproval(); // if uncommented, this runs at app first load, which I don't think it needs.
+    }
+  }, [connectedAddress, fetchBalances, /*checkApproval,*/ isClient]);
 
   const { writeContractAsync } = useWriteContract();
   const writeTx = useTransactor();
+
+  /* SET OPERATOR APPROVAL */
+  const approveOperator = async () => {
+    const writeContractAsyncWithParams = () =>
+      writeContractAsync({
+        address: FORGE_CONTRACT_ADDRESS,
+        abi: forgeContractABI,
+        functionName: "setApprovalForAll",
+        args: [forgeContract.target, true],
+        maxFeePerBlobGas: BigInt(0),
+        blobs: [],
+      });
+
+    try {
+      await writeTx(writeContractAsyncWithParams);
+    } catch (error: any) {
+      console.error("Operator approval failed: " + error.message);
+    }
+  };
 
   /* HANDLE MINTING */
   const handleMint = async (tokenId: number, mintAmount: number) => {
@@ -130,7 +188,7 @@ export function NFT_Cards() {
       });
     if (
       !confirm(
-        `To forge token ${forgeId} you will burn ${burnAndForgeAmount} of tokens ${burnIds.join(
+        `To forge token ${forgeId} you will burn ${burnAndForgeAmount.toLocaleString()} of tokens ${burnIds.join(
           " & ",
         )}. Are you sure you want to proceed?`,
       ) // todo: what if User clicks 'cancel'?
@@ -179,6 +237,7 @@ export function NFT_Cards() {
     }
   };
 
+  /* HANDLE CLICK */
   const handleClick = async event => {
     const tokenAction = event.currentTarget.getAttribute("data-value");
     const tokenId = parseInt(event.currentTarget.getAttribute("data-tokenid"));
@@ -198,7 +257,7 @@ export function NFT_Cards() {
           prompt(
             "You can trade any token, but you can only RECEIVE tokens 0-2.\nEnter the ID of the token you want to receive (0-2):\n(defaults to Dragon-Wolf #0 if left blank)",
           ) || "0";
-        debugger;
+        // debugger;
 
         await handleTrade(tokenId, parseInt(getTokenIdInput));
         break;
@@ -226,20 +285,21 @@ export function NFT_Cards() {
     }
   };
 
-  //check whether an address is connected and display message to User
   if (!isClient || !connectedAddress) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <p className="text-center text-lg font-bold">
-          Please connect your wallet to view and interact with the Dragon-Wolf Collection.
-        </p>
-      </div>
-    );
-  }
-
-  // prevent hydration error
-  if (!isClient) {
-    return null;
+    if (!isClient) {
+      // prevent hydration error
+      // alert("hydration error -- nothing to display");
+      // return null;
+    } else {
+      //check whether an address is connected and display message to User
+      return (
+        <div className="flex items-center justify-center h-full">
+          <p className="text-center text-lg font-bold">
+            Please connect your wallet to view and interact with the Dragon-Wolf Collection.
+          </p>
+        </div>
+      );
+    }
   }
 
   return (
@@ -254,10 +314,6 @@ export function NFT_Cards() {
           </div>
 
           <div className="px-5">
-            {/* <div className="flex justify-center items-center space-x-2">
-              <p className="my-2 font-medium">Connected Address:</p>
-              <Address address={connectedAddress} />
-            </div> */}
             <div className="text-center mt-4">
               <p className="text-sm text-gray-500">
                 (This site is still a work in progress. Please use any of my links in the Footer below to send me any
@@ -282,22 +338,22 @@ export function NFT_Cards() {
                 </Link>
                 <div className="flex justify-between items-center">
                   <div>Dragon-Wolf #{index}</div>
-                  <div>Qty: {balance}</div>
+                  <div>Qty: {balance.toLocaleString()}</div>
                 </div>
                 <p className="no-underline">
                   {index === 0
                     ? "A majestic Alpha male dragonwolf overlooking his pack as night approaches."
                     : index === 1
-                    ? "A majestic and shy female dragonwolf looking curious and wary."
-                    : index === 2
-                    ? "A friendly female dragonwolf who looks soft and inviting. Pay close attention to the wings."
-                    : index === 3
-                    ? "A dangerous and powerful Alpha female, matriarch of her pack. Claws that could rival those of Smaug."
-                    : index === 4
-                    ? "A beautiful female with a crown-like set of horns. The red snout is particularly interesting."
-                    : index === 5
-                    ? "A dangerous and aggressive protector of his pack. Truly an apex predator."
-                    : "The rare, beautiful and hypnotizing White Wolfdragon. The author's personal favorite."}
+                      ? "A majestic and shy female dragonwolf looking curious and wary."
+                      : index === 2
+                        ? "A friendly female dragonwolf who looks soft and inviting. Pay close attention to the wings."
+                        : index === 3
+                          ? "A dangerous and powerful Alpha female, matriarch of her pack. Claws that could rival those of Smaug."
+                          : index === 4
+                            ? "A beautiful female with a crown-like set of horns. The red snout is particularly interesting."
+                            : index === 5
+                              ? "A dangerous and aggressive protector of his pack. Truly an apex predator."
+                              : "The rare, beautiful and hypnotizing White Wolfdragon. The author's personal favorite."}
                 </p>
                 <div className="flex nft-actions justify-between">
                   {index < 3 ? (

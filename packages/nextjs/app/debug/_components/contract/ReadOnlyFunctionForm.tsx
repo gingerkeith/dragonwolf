@@ -82,6 +82,7 @@ export const ReadOnlyFunctionForm = ({
 
   //todo: change this to fetch the image hash from somewhere instead of using a magic string
   const imgHash = "bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe";
+  console.log({imgHash});
 
   useEffect(() => {
     const checkBraveBrowser = async () => {
